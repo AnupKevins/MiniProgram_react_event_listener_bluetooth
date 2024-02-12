@@ -17,12 +17,16 @@ function App() {
 
   window.event = new Event('MyEventType');
 
-  window.addEventListener('MyEventType', function (evt) {
-    // something is performed
-    console.log("####event:" + evt.detail);
-   // alert(evt.detail);
-     setBluetoothList(evt.detail.split('|'));
-  }, false);
+  window.handleBluetoothData = function(data){
+    setBluetoothList(data.split('|'));
+  }
+
+  // window.addEventListener('MyEventType', function (evt) {
+  //   // something is performed
+  //   console.log("####event:" + evt.detail);
+  //  // alert(evt.detail);
+  //    setBluetoothList(evt.detail.split('|'));
+  // }, false);
   const listItems = bluetoothList.map((item) =>
     <li key={item.toString()}>
       {item.toString()}
