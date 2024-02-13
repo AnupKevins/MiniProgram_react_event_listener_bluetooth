@@ -15,6 +15,10 @@ function handleClickDeviceMotion() {
   window.webkit.messageHandlers.iOS.postMessage("iOS_DeviceMotion")
 }
 
+function handleClickNetwork() {
+  window.webkit.messageHandlers.iOS.postMessage("iOS_Network")
+}
+
 function App() {
 
   const [hardwareList, setHardwareList] = useState([]);
@@ -30,6 +34,10 @@ function App() {
   }
 
   window.handleDeviceMotionData = function(data){
+    setHardwareList(data.split('|'));
+  }
+
+  window.handleNetworkData = function(data){
     setHardwareList(data.split('|'));
   }
 
@@ -65,6 +73,12 @@ function App() {
         </p>
         <button onClick={handleClickDeviceMotion}>
           Get DeviceMotion
+        </button>
+        <p>
+          Network
+        </p>
+        <button onClick={handleClickNetwork}>
+          Get Network Information
         </button>
         <ul>{listItems}</ul>
       </header>
