@@ -3,13 +3,13 @@ import './App.css';
 import { useState } from 'react';
 
 
-function handleClick() {
-  window.webkit.messageHandlers.iOS.postMessage("Hello from WebView!");
+function handleClickBluetooth() {
+  window.webkit.messageHandlers.iOS.postMessage("iOS_Bluetooth");
 }
 
-function showPopup(message) {
-  console.log(message);
-};
+function handleClickLocation() {
+  window.webkit.messageHandlers.iOS.postMessage("iOS_Location");
+}
 
 function App() {
 
@@ -18,6 +18,10 @@ function App() {
   window.event = new Event('MyEventType');
 
   window.handleBluetoothData = function(data){
+    setBluetoothList(data.split('|'));
+  }
+
+  window.handleLocationData = function(data){
     setBluetoothList(data.split('|'));
   }
 
@@ -39,8 +43,14 @@ function App() {
         <p>
           Bluetooth
         </p>
-        <button onClick={handleClick}>
+        <button onClick={handleClickBluetooth}>
           Connect
+        </button>
+        <p>
+          Location
+        </p>
+        <button onClick={handleClickLocation}>
+          Get Location
         </button>
         <ul>{listItems}</ul>
       </header>
