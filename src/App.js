@@ -11,18 +11,26 @@ function handleClickLocation() {
   window.webkit.messageHandlers.iOS.postMessage("iOS_Location");
 }
 
+function handleClickDeviceMotion() {
+  window.webkit.messageHandlers.iOS.postMessage("iOS_DeviceMotion")
+}
+
 function App() {
 
-  const [bluetoothList, setBluetoothList] = useState([]);
+  const [hardwareList, setHardwareList] = useState([]);
 
   window.event = new Event('MyEventType');
 
   window.handleBluetoothData = function(data){
-    setBluetoothList(data.split('|'));
+    setHardwareList(data.split('|'));
   }
 
   window.handleLocationData = function(data){
-    setBluetoothList(data.split('|'));
+    setHardwareList(data.split('|'));
+  }
+
+  window.handleDeviceMotionData = function(data){
+    setHardwareList(data.split('|'));
   }
 
   // window.addEventListener('MyEventType', function (evt) {
@@ -31,7 +39,7 @@ function App() {
   //  // alert(evt.detail);
   //    setBluetoothList(evt.detail.split('|'));
   // }, false);
-  const listItems = bluetoothList.map((item) =>
+  const listItems = hardwareList.map((item) =>
     <li key={item.toString()}>
       {item.toString()}
     </li>
@@ -44,13 +52,19 @@ function App() {
           Bluetooth
         </p>
         <button onClick={handleClickBluetooth}>
-          Connect
+          Get Bluetooth
         </button>
         <p>
           Location
         </p>
         <button onClick={handleClickLocation}>
           Get Location
+        </button>
+        <p>
+          DeviceMotion
+        </p>
+        <button onClick={handleClickDeviceMotion}>
+          Get DeviceMotion
         </button>
         <ul>{listItems}</ul>
       </header>
